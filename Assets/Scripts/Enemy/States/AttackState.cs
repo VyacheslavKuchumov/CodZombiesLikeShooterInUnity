@@ -7,11 +7,11 @@ public class AttackState : BaseState
     private float moveTimer;
     private float losePlayerTimer;
     /*public float waitBeforeSearchTimer;*/
-    private float shotTimer;
+    private float shotTimer = 0;
 
     public override void Enter()
     {
-        enemy.Agent.SetDestination(enemy.transform.position);
+        shotTimer = 0;
     }
 
     public override void Exit()
@@ -21,7 +21,8 @@ public class AttackState : BaseState
 
     public override void Perform()
     {
-        enemy.transform.LookAt(enemy.Player.transform);
+        enemy.Agent.SetDestination(enemy.Player.transform.position);
+        /*enemy.transform.LookAt(enemy.Player.transform);*/
         if (enemy.CanSeePlayer())
         {
             
@@ -29,10 +30,14 @@ public class AttackState : BaseState
             moveTimer += Time.deltaTime;
             shotTimer += Time.deltaTime;
 
-            if (shotTimer > enemy.fireRate)
-            {
-                Shoot();
+            if (enemy.CanMelee()) {
+                if (shotTimer > enemy.fireRate)
+                {
+                    MeleeAttack();
+                    shotTimer = 0;
+                }
             }
+            
 
             if (moveTimer > Random.Range(1, 2))
             {
@@ -54,7 +59,13 @@ public class AttackState : BaseState
         
     }
 
-    public void Shoot()
+
+    public void MeleeAttack()
+    {
+        enemy.Player.GetComponent<PlayerHealth>().TakeDamage(50);
+    }
+
+    /*public void Shoot()
     {
         Transform gunBarrel = enemy.gunBarrel;
 
@@ -66,7 +77,7 @@ public class AttackState : BaseState
 
         Debug.Log("shooting...");
         shotTimer = 0;
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()

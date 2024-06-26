@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public Transform gunBarrel;
     [Range(0.1f, 10f)]
     public float fireRate;
-
+    public float meleeDistance;
     [SerializeField]
     private string currentState;
 
@@ -68,6 +68,36 @@ public class Enemy : MonoBehaviour
 
                     }
                     
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool CanMelee()
+    {
+        if (player != null)
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) < meleeDistance)
+            {
+                Vector3 targetDirection = player.transform.position - transform.position - (Vector3.up * eyeHeight);
+                float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
+
+                if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
+                {
+                    Ray ray = new Ray(transform.position + (Vector3.up * eyeHeight), targetDirection);
+                    RaycastHit hitInfo = new RaycastHit();
+                    if (Physics.Raycast(ray, out hitInfo, meleeDistance))
+                    {
+                        if (hitInfo.transform.gameObject == player)
+                        {
+                            Debug.DrawRay(ray.origin, ray.direction * meleeDistance, new Color(255f, 0, 0));
+                            return true;
+                        }
+
+
+                    }
+
                 }
             }
         }
