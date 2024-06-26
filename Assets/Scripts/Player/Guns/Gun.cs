@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Gun : MonoBehaviour
 {
@@ -19,29 +18,15 @@ public class Gun : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         Reload();
     }
+
     private void Update()
     {
         gunData.currentAmmo = Mathf.Clamp(gunData.currentAmmo, 0, gunData.magSize);
         timeSinceLastShot += Time.deltaTime;
+
         if (isShooting && CanShoot())
         {
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
-            {
-                Debug.Log(hitInfo.transform.tag);
-                if (hitInfo.collider.CompareTag("Enemy"))
-                {
-                    EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
-                    if (enemyHealth != null)
-                    {
-                        enemyHealth.TakeDamage(gunData.damage);
-                        Debug.Log("Hitting enemy: " + hitInfo.collider.gameObject.name);
-                    }
-                }
-            }
-            gunData.currentAmmo--;
-            Debug.Log(gunData.currentAmmo);
-            timeSinceLastShot = 0;
-            OnGunShot();
+            ShootGun();
         }
 
         if (!gunData.reloading && gunData.currentAmmo == 0)
@@ -51,70 +36,84 @@ public class Gun : MonoBehaviour
 
         if (gunData.reloading)
         {
-            timeSinceReloadingStart += Time.deltaTime;
-            Debug.Log("Reloading....");
-            if (timeSinceReloadingStart >= gunData.reloadTime)
+            HandleReloading();
+        }
+    }
+
+    private void ShootGun()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
+        {
+            Debug.Log(hitInfo.transform.tag);
+            if (hitInfo.collider.CompareTag("Enemy"))
             {
-                Debug.Log("Reloading finished!");
-                gunData.currentAmmo = gunData.magSize;
-                timeSinceReloadingStart = 0;
-                gunData.reloading = false;
+                EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(gunData.damage);
+                    Debug.Log("Hitting enemy: " + hitInfo.collider.gameObject.name);
+                }
             }
+        }
+
+        gunData.currentAmmo--;
+        Debug.Log(gunData.currentAmmo);
+        timeSinceLastShot = 0;
+        OnGunShot();
+    }
+
+    private void HandleReloading()
+    {
+        timeSinceReloadingStart += Time.deltaTime;
+        Debug.Log("Reloading....");
+        if (timeSinceReloadingStart >= gunData.reloadTime)
+        {
+            Debug.Log("Reloading finished!");
+            gunData.currentAmmo = gunData.magSize;
+            timeSinceReloadingStart = 0;
+            gunData.reloading = false;
         }
     }
 
     private void OnGunShot()
     {
         Transform gunBarrel = muzzle;
-
-        GameObject bullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet") as GameObject, gunBarrel.position, transform.rotation);
-
-        Vector3 shootDirection = (gunBarrel.transform.forward);
-
+        GameObject bullet = Instantiate(Resources.Load("Prefabs/Bullet") as GameObject, gunBarrel.position, transform.rotation);
+        Vector3 shootDirection = gunBarrel.transform.forward;
         bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(UnityEngine.Random.Range(-3f, 3f), Vector3.up) * shootDirection * 180;
-
-        // gunshot effects
     }
 
     private bool CanShoot()
     {
-        
-        if (!gunData.reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f) && gunData.currentAmmo > 0)
-            return true;
-
-        else
-            if (gunData.currentAmmo == 0)
-            {
-                Debug.Log("No ammo!");
-            }
-        return false;
-
+        return !gunData.reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f) && gunData.currentAmmo > 0;
     }
 
     private bool CanReload()
     {
-        if (!gunData.reloading && !isShooting && gunData.currentAmmo != gunData.magSize)
-            return true;
-
-        else
-            return false;
+        return !gunData.reloading && gunData.currentAmmo < gunData.magSize;
     }
 
     public void Shoot()
     {
-        isShooting = !isShooting;
-        Debug.Log(isShooting);
-
+        if (CanShoot())
+        {
+            isShooting = !isShooting;
+        }
+        else
+        {
+            isShooting = false;
+        }
     }
+
     public void Reload()
     {
         if (CanReload())
         {
+            gunData.currentAmmo = 0;
+            isShooting = false;
             gunData.reloading = true;
+            timeSinceReloadingStart = 0;
             Debug.Log("Initiating reloading");
         }
-        
-        
-
     }
 }

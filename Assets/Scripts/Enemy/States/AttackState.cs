@@ -21,11 +21,11 @@ public class AttackState : BaseState
 
     public override void Perform()
     {
-        enemy.Agent.SetDestination(enemy.Player.transform.position);
+        
         /*enemy.transform.LookAt(enemy.Player.transform);*/
         if (enemy.CanSeePlayer())
         {
-            
+            enemy.Agent.SetDestination(enemy.Player.transform.position);
             losePlayerTimer = 0;
             moveTimer += Time.deltaTime;
             shotTimer += Time.deltaTime;

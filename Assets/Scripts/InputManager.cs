@@ -10,7 +10,11 @@ public class InputManager : MonoBehaviour
     private PlayerMotor motor;
     private PlayerLook look;
     [SerializeField]
-    public GameObject gun;
+    public GameObject gun1;
+    [SerializeField]
+    public GameObject gun2;
+    [SerializeField]
+    public GameObject weaponHolder;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,17 +24,27 @@ public class InputManager : MonoBehaviour
 
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
-        Gun gunScript = gun.GetComponent<Gun>();
+        Gun primaryGun = gun1.GetComponent<Gun>();
+        Gun secondaryGun = gun2.GetComponent<Gun>();
+        WeaponSwitching weaponSwitcher = weaponHolder.GetComponent<WeaponSwitching>();
 
         onFoot.Jump.performed += ctx => motor.Jump();
 
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Sprint.performed += ctx => motor.Sprint();
         onFoot.Sprint.canceled += ctx => motor.Sprint();
-        onFoot.Fire.performed += ctx => gunScript.Shoot();
-        onFoot.Fire.canceled += ctx => gunScript.Shoot();
+        onFoot.Fire.performed += ctx => primaryGun.Shoot();
+        onFoot.Fire.canceled += ctx => primaryGun.Shoot();
 
-        onFoot.Interact.performed += ctx => gunScript.Reload();
+        onFoot.Interact.performed += ctx => primaryGun.Reload();
+
+        onFoot.Fire.performed += ctx => secondaryGun.Shoot();
+        onFoot.Fire.canceled += ctx => secondaryGun.Shoot();
+
+        onFoot.Interact.performed += ctx => secondaryGun.Reload();
+
+
+        onFoot.ChangeWeapon.performed += ctx => weaponSwitcher.ChangeWeapon();
     }
 
     // Update is called once per frame
