@@ -9,6 +9,8 @@ public class InputManager : MonoBehaviour
     public PlayerInput.OnFootActions onFoot;
     private PlayerMotor motor;
     private PlayerLook look;
+    [SerializeField]
+    public GameObject gun;
 
     // Start is called before the first frame update
     void Awake()
@@ -18,12 +20,17 @@ public class InputManager : MonoBehaviour
 
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
+        Gun gunScript = gun.GetComponent<Gun>();
 
         onFoot.Jump.performed += ctx => motor.Jump();
 
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Sprint.performed += ctx => motor.Sprint();
         onFoot.Sprint.canceled += ctx => motor.Sprint();
+        onFoot.Fire.performed += ctx => gunScript.Shoot();
+        onFoot.Fire.canceled += ctx => gunScript.Shoot();
+
+        onFoot.Interact.performed += ctx => gunScript.Reload();
     }
 
     // Update is called once per frame

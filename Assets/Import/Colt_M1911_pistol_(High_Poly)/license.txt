@@ -1,0 +1,11 @@
+Model Information:
+* title:	Colt M1911 pistol (High Poly)
+* source:	https://sketchfab.com/3d-models/colt-m1911-pistol-high-poly-fb5d94b8b7a14d8b84c30937003e3d90
+* author:	Fabb's Lab (https://sketchfab.com/FabbLab)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Colt M1911 pistol (High Poly)" (https://sketchfab.com/3d-models/colt-m1911-pistol-high-poly-fb5d94b8b7a14d8b84c30937003e3d90) by Fabb's Lab (https://sketchfab.com/FabbLab) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
