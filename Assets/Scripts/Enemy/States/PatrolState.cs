@@ -7,6 +7,7 @@ public class PatrolState : BaseState
     public int waypointIndex;
     public float waitTimer = 3f;
     private float waitTime;
+    private float moveTimer;
 
     public override void Enter()
     {
@@ -14,11 +15,19 @@ public class PatrolState : BaseState
     }
     public override void Perform()
     {
-        PatrolCycle();
+        
         if (enemy.CanSeePlayer())
         {
             stateMachine.ChangeState(new AttackState());
         }
+        /*PatrolCycle();*/
+        moveTimer += Time.deltaTime;
+        if (moveTimer > Random.Range(4, 8))
+        {
+            enemy.Agent.SetDestination(enemy.transform.position + Random.insideUnitSphere * 10);
+            moveTimer = 0;
+        }
+
     }
     public override void Exit()
     {
