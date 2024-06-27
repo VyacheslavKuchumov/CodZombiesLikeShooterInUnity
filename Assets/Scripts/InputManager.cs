@@ -34,12 +34,12 @@ public class InputManager : MonoBehaviour
         onFoot.Sprint.performed += ctx => motor.Sprint();
         onFoot.Sprint.canceled += ctx => motor.Sprint();
         onFoot.Fire.performed += ctx => primaryGun.Shoot();
-        onFoot.Fire.canceled += ctx => primaryGun.Shoot();
+        onFoot.Fire.canceled += ctx => primaryGun.NotShoot();
 
         onFoot.Interact.performed += ctx => primaryGun.Reload();
 
         onFoot.Fire.performed += ctx => secondaryGun.Shoot();
-        onFoot.Fire.canceled += ctx => secondaryGun.Shoot();
+        onFoot.Fire.canceled += ctx => secondaryGun.NotShoot();
 
         onFoot.Interact.performed += ctx => secondaryGun.Reload();
 
@@ -47,7 +47,11 @@ public class InputManager : MonoBehaviour
         onFoot.ChangeWeapon.performed += ctx => weaponSwitcher.ChangeWeapon();
 
         onFoot.Aim.performed += ctx => look.Aim();
+        onFoot.Aim.performed += ctx => primaryGun.AimingGun();
+        onFoot.Aim.performed += ctx => secondaryGun.AimingGun();
         onFoot.Aim.canceled += ctx => look.StopAim();
+        onFoot.Aim.canceled += ctx => primaryGun.NotAimingGun();
+        onFoot.Aim.canceled += ctx => secondaryGun.NotAimingGun();
     }
 
     // Update is called once per frame

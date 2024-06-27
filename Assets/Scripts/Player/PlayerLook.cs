@@ -10,6 +10,8 @@ public class PlayerLook : MonoBehaviour
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
 
+    public float adsMultiplier = 1;
+
     private float defaultFOV;
     private void Start()
     {
@@ -34,14 +36,20 @@ public class PlayerLook : MonoBehaviour
         if (cam != null)
         {
             cam.fieldOfView = 30;
+            xSensitivity = xSensitivity / adsMultiplier;
+            ySensitivity = ySensitivity / adsMultiplier;
         }
     }
 
     public void StopAim()
     {
+
         if (cam != null)
         {
             cam.fieldOfView = defaultFOV;
+            
+            xSensitivity = xSensitivity * adsMultiplier;
+            ySensitivity = ySensitivity * adsMultiplier;
         }
     }
 }

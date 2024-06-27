@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1278130251018647200}
   speed: 15
-  sensitivityMultiplier: 5
+  sensitivityMultiplier: 2
 --- !u!114 &328143910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4771,6 +4771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 843722348}
   - component: {fileID: 843722349}
+  - component: {fileID: 843722350}
   m_Layer: 0
   m_Name: Sidearm
   m_TagString: Untagged
@@ -4809,6 +4810,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: db4ea7ebf1b591c4eb9e6456097bdd89, type: 2}
   muzzle: {fileID: 345356593}
+--- !u!95 &843722350
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843722347}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d9ccaa58c72ef446901ac5aa7c61bbe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &862336997
 GameObject:
   m_ObjectHideFlags: 0
@@ -6114,6 +6137,7 @@ MonoBehaviour:
   cam: {fileID: 1923668032387889545}
   xSensitivity: 230
   ySensitivity: 230
+  adsMultiplier: 2.07
 --- !u!114 &999964555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8170,6 +8194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1324277320}
   - component: {fileID: 1324277321}
+  - component: {fileID: 1324277322}
   m_Layer: 0
   m_Name: AssultRifle
   m_TagString: Untagged
@@ -8208,6 +8233,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 9593f83f5d69c9d4db3fcfc4c3069334, type: 2}
   muzzle: {fileID: 1884672145}
+--- !u!95 &1324277322
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324277319}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b568e4cea3e34d146b75f79e527691f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1327643967
 GameObject:
   m_ObjectHideFlags: 0
@@ -79898,6 +79945,7 @@ GameObject:
   - component: {fileID: 7381049359402606915}
   - component: {fileID: 1923668032387889545}
   - component: {fileID: 265687872741002662}
+  - component: {fileID: 8519960048653135718}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -79905,6 +79953,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &8519960048653135718
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519960048653135717}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e81414aa9e7008940a60e5f4294d4c14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &8524390803153852989
 Transform:
   m_ObjectHideFlags: 0

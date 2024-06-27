@@ -13,6 +13,8 @@ public class Gun : MonoBehaviour
     private float timeSinceLastShot;
     private float timeSinceReloadingStart;
 
+    private bool isAiming;
+
     private void Start()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -97,12 +99,17 @@ public class Gun : MonoBehaviour
     {
         if (CanShoot())
         {
-            isShooting = !isShooting;
+            isShooting = true;
         }
-        else
-        {
-            isShooting = false;
-        }
+        
+    }
+
+    public void NotShoot()
+    {
+        
+        isShooting = false;
+        
+
     }
 
     public void Reload()
@@ -115,5 +122,16 @@ public class Gun : MonoBehaviour
             timeSinceReloadingStart = 0;
             Debug.Log("Initiating reloading");
         }
+    }
+
+    public void AimingGun()
+    {
+        isAiming = true;
+        gameObject.GetComponent<Animator>().SetBool("IsAiming", isAiming);
+    }
+    public void NotAimingGun()
+    {
+        isAiming = false;
+        gameObject.GetComponent<Animator>().SetBool("IsAiming", isAiming);
     }
 }
