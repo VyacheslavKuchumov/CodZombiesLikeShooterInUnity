@@ -9,7 +9,13 @@ public class PlayerLook : MonoBehaviour
 
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
-    
+
+    private float defaultFOV;
+    private void Start()
+    {
+        defaultFOV = cam.fieldOfView;
+    }
+
     public void ProccesLook(Vector2 input)
     {
         float mouseX = input.x;
@@ -21,5 +27,21 @@ public class PlayerLook : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+    }
+
+    public void Aim()
+    {
+        if (cam != null)
+        {
+            cam.fieldOfView = 30;
+        }
+    }
+
+    public void StopAim()
+    {
+        if (cam != null)
+        {
+            cam.fieldOfView = defaultFOV;
+        }
     }
 }

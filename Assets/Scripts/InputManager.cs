@@ -45,6 +45,9 @@ public class InputManager : MonoBehaviour
 
 
         onFoot.ChangeWeapon.performed += ctx => weaponSwitcher.ChangeWeapon();
+
+        onFoot.Aim.performed += ctx => look.Aim();
+        onFoot.Aim.canceled += ctx => look.StopAim();
     }
 
     // Update is called once per frame
